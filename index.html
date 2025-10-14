@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secret Language Converter - HACKER EDITION</title>
+    <title>Cipher Protocol</title>
     <style>
         * {
             margin: 0;
@@ -11,16 +11,15 @@
             box-sizing: border-box;
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
 
         body {
-            font-family: 'Courier Prime', monospace;
+            font-family: 'Inter', sans-serif;
             background: #0a0e27;
-            color: #00ff41;
+            color: #e0e6f5;
             min-height: 100vh;
-            padding: 20px;
+            padding: 30px 20px;
             position: relative;
-            overflow-x: hidden;
         }
 
         body::before {
@@ -30,85 +29,42 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0, 255, 65, 0.03) 0px,
-                rgba(0, 255, 65, 0.03) 2px,
-                transparent 2px,
-                transparent 4px
-            );
+            background: radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
             pointer-events: none;
-            z-index: 1;
-            animation: scan 8s linear infinite;
-        }
-
-        @keyframes scan {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(10px); }
+            z-index: 0;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
             position: relative;
-            z-index: 2;
+            z-index: 1;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 50px;
-            position: relative;
+            margin-bottom: 60px;
         }
 
-        .header::before {
-            content: '█ █ █ █ █ █ █ █ █ █';
-            display: block;
-            color: #00ff41;
-            font-size: 0.8em;
-            margin-bottom: 20px;
-            letter-spacing: 8px;
-            animation: blink 2s infinite;
+        .header h1 {
+            font-size: 3.5em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #63f7ff 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+            text-shadow: 0 0 30px rgba(99, 247, 255, 0.2);
         }
 
-        .header::after {
-            content: '█ █ █ █ █ █ █ █ █ █';
-            display: block;
-            color: #00ff41;
-            font-size: 0.8em;
-            margin-top: 20px;
-            letter-spacing: 8px;
-            animation: blink 2s infinite 0.5s;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        h1 {
-            color: #00ff41;
-            font-size: 3em;
-            text-shadow: 0 0 10px #00ff41, 0 0 20px #00aa00, 0 0 40px #006600;
-            letter-spacing: 4px;
-            margin: 20px 0;
-            animation: glow 2s ease-in-out infinite;
-        }
-
-        @keyframes glow {
-            0%, 100% { text-shadow: 0 0 10px #00ff41, 0 0 20px #00aa00; }
-            50% { text-shadow: 0 0 20px #00ff41, 0 0 40px #00aa00, 0 0 60px #006600; }
-        }
-
-        .subtitle {
-            color: #00aa00;
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            animation: flicker 3s infinite;
-        }
-
-        @keyframes flicker {
-            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
-            20%, 24%, 55% { opacity: 0.5; }
+        .header p {
+            font-size: 1em;
+            color: #94a3b8;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 500;
         }
 
         .grid {
@@ -119,13 +75,14 @@
         }
 
         .panel {
-            background: linear-gradient(135deg, #0f1a3f 0%, #1a0f2e 100%);
-            border: 2px solid #00ff41;
-            border-radius: 0;
-            padding: 25px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 27, 60, 0.6) 100%);
+            border: 1px solid rgba(99, 247, 255, 0.2);
+            border-radius: 12px;
+            padding: 32px;
+            backdrop-filter: blur(10px);
             position: relative;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2), inset 0 0 20px rgba(0, 255, 65, 0.05);
             overflow: hidden;
+            transition: all 0.3s ease;
         }
 
         .panel::before {
@@ -134,94 +91,93 @@
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: repeating-linear-gradient(
-                90deg,
-                transparent,
-                transparent 2px,
-                rgba(0, 255, 65, 0.05) 2px,
-                rgba(0, 255, 65, 0.05) 4px
-            );
-            pointer-events: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(99, 247, 255, 0.5), transparent);
         }
 
-        .panel h2 {
-            color: #00ff41;
-            margin-bottom: 15px;
-            font-size: 1.4em;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px #00ff41;
+        .panel:hover {
+            border-color: rgba(99, 247, 255, 0.4);
+            box-shadow: 0 0 30px rgba(99, 247, 255, 0.15), inset 0 0 20px rgba(99, 247, 255, 0.05);
+        }
+
+        .panel-title {
+            font-size: 1.15em;
+            font-weight: 600;
+            color: #63f7ff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
             text-transform: uppercase;
-            position: relative;
-            z-index: 1;
+            letter-spacing: 0.5px;
         }
 
-        .panel h2::before {
-            content: '> ';
-            color: #00aa00;
+        .panel-icon {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #63f7ff;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            color: #63f7ff;
         }
 
         textarea {
             width: 100%;
-            padding: 15px;
-            background: #0a0e27;
-            border: 1px solid #00ff41;
-            color: #00ff41;
-            font-family: 'Courier Prime', monospace;
-            font-size: 1em;
+            padding: 16px;
+            background: rgba(10, 14, 39, 0.6);
+            border: 1px solid rgba(99, 247, 255, 0.15);
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95em;
+            line-height: 1.6;
+            color: #e0e6f5;
             resize: vertical;
             min-height: 150px;
             outline: none;
-            cursor: text;
-            position: relative;
-            z-index: 1;
-            box-shadow: inset 0 0 10px rgba(0, 255, 65, 0.1);
-            transition: box-shadow 0.3s;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
         }
 
         textarea:focus {
-            box-shadow: inset 0 0 10px rgba(0, 255, 65, 0.3), 0 0 20px rgba(0, 255, 65, 0.2);
+            border-color: rgba(99, 247, 255, 0.5);
+            box-shadow: 0 0 20px rgba(99, 247, 255, 0.2), inset 0 0 10px rgba(99, 247, 255, 0.05);
+            background: rgba(10, 14, 39, 0.8);
         }
 
         textarea::placeholder {
-            color: #00aa00;
-            opacity: 0.7;
+            color: rgba(148, 163, 184, 0.6);
         }
 
         .button-group {
             display: flex;
             gap: 12px;
-            margin-top: 15px;
-            position: relative;
-            z-index: 1;
+            margin-top: 18px;
         }
 
         button {
             flex: 1;
-            padding: 12px 20px;
-            border: 2px solid #00ff41;
-            background: #0a0e27;
-            color: #00ff41;
-            font-family: 'Courier Prime', monospace;
+            padding: 12px 24px;
+            border: 1px solid rgba(99, 247, 255, 0.3);
+            background: linear-gradient(135deg, rgba(99, 247, 255, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            color: #63f7ff;
+            font-family: 'Inter', sans-serif;
             font-size: 0.95em;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            border-radius: 8px;
             transition: all 0.3s;
-            box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
-            position: relative;
-        }
-
-        button::before {
-            content: '█';
-            margin-right: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(10px);
         }
 
         button:hover {
-            background: #00ff41;
-            color: #0a0e27;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.8), inset 0 0 20px rgba(0, 255, 65, 0.3);
+            border-color: rgba(99, 247, 255, 0.6);
+            background: linear-gradient(135deg, rgba(99, 247, 255, 0.2) 0%, rgba(139, 92, 246, 0.15) 100%);
+            box-shadow: 0 0 20px rgba(99, 247, 255, 0.25), inset 0 0 10px rgba(99, 247, 255, 0.1);
             transform: translateY(-2px);
         }
 
@@ -229,142 +185,139 @@
             transform: translateY(0);
         }
 
-        .copy-btn::before {
-            content: '◇';
-        }
-
         button.copied {
-            background: #00ff41;
-            color: #0a0e27;
-            box-shadow: 0 0 30px rgba(0, 255, 65, 1);
+            border-color: rgba(74, 222, 128, 0.5);
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.15) 0%, rgba(74, 222, 128, 0.1) 100%);
+            color: #4ade80;
+            box-shadow: 0 0 20px rgba(74, 222, 128, 0.25);
         }
 
-        .output-grid {
+        .output-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
             margin-bottom: 40px;
         }
 
-        .output-panel {
-            background: linear-gradient(135deg, #0f1a3f 0%, #1a0f2e 100%);
-            border: 2px dashed #00ff41;
-            border-radius: 0;
-            padding: 25px;
+        .output-box {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 27, 60, 0.6) 100%);
+            border: 1px dashed rgba(99, 247, 255, 0.2);
+            border-radius: 12px;
+            padding: 32px;
+            backdrop-filter: blur(10px);
             position: relative;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.15);
+            overflow: hidden;
         }
 
-        .output-panel h3 {
-            color: #00ff41;
-            margin-bottom: 15px;
-            font-size: 1.1em;
+        .output-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(99, 247, 255, 0.3), transparent);
+        }
+
+        .output-box h3 {
+            font-size: 0.95em;
+            font-weight: 600;
+            color: #8b5cf6;
+            margin-bottom: 16px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        .output-panel h3::before {
-            content: '◆ ';
+        .output-box textarea {
+            border: 1px solid rgba(139, 92, 246, 0.2);
         }
 
-        .output-panel textarea {
-            background: #050810;
-            border-style: dotted;
+        .output-box textarea:focus {
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.2), inset 0 0 10px rgba(139, 92, 246, 0.05);
         }
 
-        .key-reference {
-            background: linear-gradient(135deg, #0f1a3f 0%, #1a0f2e 100%);
-            border: 2px solid #00ff41;
-            padding: 30px;
+        .key-section {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 27, 60, 0.6) 100%);
+            border: 1px solid rgba(99, 247, 255, 0.2);
+            border-radius: 12px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
             position: relative;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            overflow: hidden;
         }
 
-        .key-reference::before {
-            content: '[KEY REFERENCE DATABASE]';
-            display: block;
-            color: #00aa00;
-            font-size: 0.9em;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
+        .key-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(99, 247, 255, 0.5), transparent);
         }
 
-        .key-reference h3 {
-            color: #00ff41;
-            margin-bottom: 20px;
-            font-size: 1.2em;
+        .key-section h2 {
+            font-size: 1.25em;
+            font-weight: 600;
+            color: #63f7ff;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
         .key-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 12px;
         }
 
         .key-item {
-            background: #0a0e27;
-            padding: 12px;
-            border: 1px solid #00aa00;
+            background: rgba(10, 14, 39, 0.6);
+            border: 1px solid rgba(99, 247, 255, 0.15);
+            border-radius: 8px;
+            padding: 16px;
             text-align: center;
-            font-family: 'Courier Prime', monospace;
-            position: relative;
-            box-shadow: inset 0 0 5px rgba(0, 255, 65, 0.1);
             transition: all 0.3s;
+            backdrop-filter: blur(5px);
         }
 
         .key-item:hover {
-            border-color: #00ff41;
-            box-shadow: inset 0 0 10px rgba(0, 255, 65, 0.2), 0 0 10px rgba(0, 255, 65, 0.3);
+            border-color: rgba(99, 247, 255, 0.4);
+            background: rgba(99, 247, 255, 0.05);
+            box-shadow: 0 0 15px rgba(99, 247, 255, 0.15);
             transform: translateY(-2px);
-        }
-
-        .key-item::before {
-            content: '→';
-            display: block;
-            color: #00aa00;
-            margin-bottom: 5px;
-            font-size: 0.8em;
         }
 
         .key-item .letter {
             font-weight: 700;
-            color: #00ff41;
-            font-size: 1.2em;
-            text-shadow: 0 0 5px #00ff41;
+            color: #63f7ff;
+            font-size: 1.15em;
+            margin-bottom: 8px;
         }
 
         .key-item .symbol {
-            color: #00aa00;
-            font-size: 1.3em;
-            margin-top: 8px;
+            color: #8b5cf6;
+            font-size: 1.35em;
             font-weight: 700;
-        }
-
-        .status-bar {
-            background: #0a0e27;
-            border: 1px solid #00aa00;
-            padding: 10px 15px;
-            color: #00aa00;
-            font-size: 0.85em;
-            margin-top: 30px;
-            text-align: right;
-            letter-spacing: 1px;
+            font-family: 'JetBrains Mono', monospace;
         }
 
         @media (max-width: 768px) {
-            .grid, .output-grid {
+            .header h1 {
+                font-size: 2.2em;
+            }
+
+            .grid, .output-section {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 24px;
             }
 
-            h1 {
-                font-size: 2em;
-            }
-
-            .header::before, .header::after {
-                letter-spacing: 4px;
+            .panel, .key-section {
+                padding: 24px;
             }
         }
     </style>
@@ -372,49 +325,51 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>⚡ CIPHER PROTOCOL ⚡</h1>
-            <p class="subtitle">> CLASSIFIED ENCRYPTION SYSTEM ACTIVE</p>
+            <h1>CIPHER PROTOCOL</h1>
+            <p>Advanced Encryption System</p>
         </div>
 
         <div class="grid">
             <div class="panel">
-                <h2>Encode Sequence</h2>
-                <textarea id="normalInput" placeholder="INPUT TEXT HERE..."></textarea>
+                <div class="panel-title">
+                    <div class="panel-icon">▶</div>
+                    Encode Message
+                </div>
+                <textarea id="normalInput" placeholder="Enter message to encrypt..."></textarea>
                 <div class="button-group">
-                    <button onclick="encodeToSecret()">◉ Encrypt</button>
-                    <button class="copy-btn" onclick="copyToClipboard('secretOutput')">◌ Copy</button>
+                    <button onclick="encodeToSecret()">Encrypt</button>
+                    <button onclick="copyToClipboard('secretOutput')">Copy</button>
                 </div>
             </div>
 
             <div class="panel">
-                <h2>Decode Sequence</h2>
-                <textarea id="secretInput" placeholder="ENCRYPTED TEXT HERE..."></textarea>
+                <div class="panel-title">
+                    <div class="panel-icon">◀</div>
+                    Decode Message
+                </div>
+                <textarea id="secretInput" placeholder="Enter cipher to decrypt..."></textarea>
                 <div class="button-group">
-                    <button onclick="decodeFromSecret()">◉ Decrypt</button>
-                    <button class="copy-btn" onclick="copyToClipboard('normalOutput')">◌ Copy</button>
+                    <button onclick="decodeFromSecret()">Decrypt</button>
+                    <button onclick="copyToClipboard('normalOutput')">Copy</button>
                 </div>
             </div>
         </div>
 
-        <div class="output-grid">
-            <div class="output-panel">
+        <div class="output-section">
+            <div class="output-box">
                 <h3>Encrypted Output</h3>
-                <textarea id="secretOutput" placeholder="[ENCRYPTED MESSAGE BUFFER]" readonly></textarea>
+                <textarea id="secretOutput" placeholder="Encrypted message will appear here..." readonly></textarea>
             </div>
 
-            <div class="output-panel">
+            <div class="output-box">
                 <h3>Decrypted Output</h3>
-                <textarea id="normalOutput" placeholder="[DECRYPTED MESSAGE BUFFER]" readonly></textarea>
+                <textarea id="normalOutput" placeholder="Decrypted message will appear here..." readonly></textarea>
             </div>
         </div>
 
-        <div class="key-reference">
-            <h3>█ Encryption Codex</h3>
+        <div class="key-section">
+            <h2>🔑 Encryption Codex</h2>
             <div class="key-grid" id="keyGrid"></div>
-        </div>
-
-        <div class="status-bar">
-            > SYSTEM ONLINE | ENCRYPTION ACTIVE | [██████████] 100%
         </div>
     </div>
 
@@ -477,7 +432,7 @@
             navigator.clipboard.writeText(text).then(() => {
                 const button = event.target;
                 const originalText = button.textContent;
-                button.textContent = '✓ COPIED';
+                button.textContent = '✓ Copied';
                 button.classList.add('copied');
 
                 setTimeout(() => {
